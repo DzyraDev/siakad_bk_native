@@ -6,13 +6,14 @@ $db->auth_login();
 
 if (isset($_POST['nisn'])) {
     $nisn = isset($_POST['nisn']) ? strip_tags($_POST['nisn']) : '';
+    $telepon = isset($_POST['telepon']) ? strip_tags($_POST['telepon']) : '';
     $nama = isset($_POST['nama_lengkap']) ? strip_tags($_POST['nama_lengkap']) : '';
     $jenis_kelamin = isset($_POST['jenis_kelamin']) ? strip_tags($_POST['jenis_kelamin']) : '';
     $kelas = isset($_POST['kelas']) ? strip_tags($_POST['kelas']) : '';
     $username = isset($_POST['username']) ? strip_tags($_POST['username']) : '';
     $password = isset($_POST['password']) ? strip_tags($_POST['password']) : '';
 
-    $response = $db->register_siswa($nisn, $nama, $jenis_kelamin,  $kelas, $username, $password);
+    $response = $db->register_siswa($nisn, $telepon,  $nama, $jenis_kelamin,  $kelas, $username, $password);
     echo json_encode($response);
     exit;
 }
@@ -44,6 +45,11 @@ if (isset($_POST['nisn'])) {
                                 <p class="text-center">PENDAFTARAN AKUN</p>
                                 <form action="register.php" id="form_regis" method="POST">
                                     <div class="row mt-5">
+                                        <div class="mb-4">
+                                            <label for="exampleInputPassword1" class="form-label">Nama Lengkap</label>
+                                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                                name="nama_lengkap" />
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">NISN</label>
@@ -51,9 +57,9 @@ if (isset($_POST['nisn'])) {
                                                     aria-describedby="emailHelp" />
                                             </div>
                                             <div class="mb-4">
-                                                <label for="exampleInputPassword1" class="form-label">Nama Lengkap</label>
-                                                <input type="text" class="form-control" id="exampleInputPassword1"
-                                                    name="nama_lengkap" />
+                                                <label for="telepon" class="form-label">No Whatsapp</label>
+                                                <input type="text" class="form-control" id="telepon"
+                                                    name="telepon" />
                                             </div>
                                             <div class="mb-4">
                                                 <label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>

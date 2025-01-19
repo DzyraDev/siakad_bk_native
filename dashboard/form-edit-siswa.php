@@ -12,28 +12,36 @@ if (isset($_GET['logout'])) {
     $db->logout();
 }
 
-if (isset($_POST['nuptk'])) {
+if (isset($_POST['nisn'])) {
+    $id_user = isset($_POST['id_user']) ? strip_tags($_POST['id_user']) : '';
     $username = isset($_POST['username']) ? strip_tags($_POST['username']) : '';
     $password = isset($_POST['password']) ? strip_tags($_POST['password']) : '';
-    $nuptk = isset($_POST['nuptk']) ? strip_tags($_POST['nuptk']) : '';
+    $nisn = isset($_POST['nisn']) ? strip_tags($_POST['nisn']) : '';
     $nama_lengkap = isset($_POST['nama_lengkap']) ? strip_tags($_POST['nama_lengkap']) : '';
+    $telepon = isset($_POST['telepon']) ? strip_tags($_POST['telepon']) : '';
     $jenis_kelamin = isset($_POST['jenis_kelamin']) ? strip_tags($_POST['jenis_kelamin']) : '';
-    $email = isset($_POST['email']) ? strip_tags($_POST['email']) : '';
-    $tanggal_lahir = isset($_POST['tanggal_lahir']) ? $_POST['tanggal_lahir'] : '';
-    $tempat_lahir = isset($_POST['tempat_lahir']) ? strip_tags($_POST['tempat_lahir']) : '';
+    $kelas = isset($_POST['kelas']) ? strip_tags($_POST['kelas']) : '';
+    $jumlah_alfa = !empty($_POST['jumlah_alfa']) ? strip_tags($_POST['jumlah_alfa']) : null;
+    $jumlah_izin = !empty($_POST['jumlah_izin']) ? strip_tags($_POST['jumlah_izin']) : null;
+    $jumlah_sakit = !empty($_POST['jumlah_sakit']) ? strip_tags($_POST['jumlah_sakit']) : null;
 
-    $response = $db->add_guru($username, $password, $nuptk, $nama_lengkap, $jenis_kelamin, $email, $tanggal_lahir, $tempat_lahir);
+    $response = $db->edit_siswa($id_user, $username, $password, $nisn, $nama_lengkap, $telepon, $jenis_kelamin, $kelas, $jumlah_alfa, $jumlah_izin, $jumlah_sakit);
     echo json_encode($response);
     exit;
 }
+
+$id_user = isset($_GET['id']) ? $_GET['id'] : '';
+
+$data_siswa = $db->form_edit_siswa($id_user);
 ?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tambah Guru</title>
+    <title>Modernize Free</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -73,15 +81,16 @@ if (isset($_POST['nuptk'])) {
                     <div class="container-fluid">
                         <div class="card mt-4">
                             <div class="card-body">
-                                <h5 class="card-title fw-semibold mb-4">Tambah Data Guru BK</h5>
+                                <h5 class="card-title fw-semibold mb-4">Edit Data Siswa/i</h5>
                                 <div class="card">
                                     <div class="card-body">
-                                        <form action="form-guru.php" method="POST" id="form_add_guru">
+                                        <form action="form-edit-siswa.php" method="POST" id="form_edit_siswa">
+                                            <input type="hidden" name="id_user" value="<?= $data_siswa['id_user'] ?>">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="username" class="form-label">Username</label>
-                                                        <input type="text" class="form-control" name="username" id="username">
+                                                        <input type="text" class="form-control" value="<?= $data_siswa['username'] ?>" name="username" id="username">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -92,50 +101,67 @@ if (isset($_POST['nuptk'])) {
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nuptk" class="form-label">NUPTK</label>
-                                                <input type="text" class="form-control" name="nuptk" id="nuptk"
-                                                    aria-describedby="emailHelp">
+                                                <label for="nisn" class="form-label">NISN</label>
+                                                <input type="number" class="form-control" value="<?= $data_siswa['nisn'] ?>" name="nisn" id="nisn">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nama" class="form-label">Nama Lengkap</label>
-                                                <input type="text" class="form-control" name="nama_lengkap" id="nama">
+                                                <label for="nama_lengkap" class="form-label">Nama
+                                                    Lengkap</label>
+                                                <input type="text" class="form-control" value="<?= $data_siswa['nama_lengkap'] ?>" name="nama_lengkap" id="nama_lengkap">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exampleInputPassword1" class="form-label">Jenis
-                                                    Kelamin</label>
-                                                <select class="form-select" aria-label="Default select example"
-                                                    name="jenis_kelamin">
-                                                    <option selected>PILIH JENIS KELAMIN</option>
-                                                    <option value="L">Laki Laki</option>
-                                                    <option value="P">Perempuan</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email" id="email">
+                                                <label for="telepon" class="form-label">No Whatsapp</label>
+                                                <input type="text" class="form-control" value="<?= $data_siswa['telepon'] ?>" name="telepon" id="telepon">
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="Tanggal_lahir" class="form-label">Tanggal
-                                                            Lahir</label>
-                                                        <input type="date" class="form-control" name="tanggal_lahir"
-                                                            id="Tanggal_lahir">
+                                                    <div class="mb-4">
+                                                        <label for="exampleInputPassword1" class="form-label">Jenis Kelamin</label>
+                                                        <select class="form-select" aria-label="Default select example" name="jenis_kelamin">
+                                                            <option selected>PILIH JENIS KELAMIN</option>
+                                                            <option value="L" <?= $data_siswa['jenis_kelamin'] == 'L' ? 'selected' : '' ?>>Laki Laki</option>
+                                                            <option value="P" <?= $data_siswa['jenis_kelamin'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="tempat_lahir" class="form-label">Tempat
-                                                            Lahir</label>
-                                                        <input type="text" class="form-control" name="tempat_lahir"
-                                                            id="tempat_lahir">
+                                                    <div class="mb-4">
+                                                        <label for="kelas" class="form-label">Kelas / Jurusan</label>
+                                                        <select class="form-select" aria-label="Default select example" id="kelas" name="kelas">
+                                                            <option selected>PILIH KELAS</option>
+                                                            <option value="10 RPL 1" <?= $data_siswa['kelas'] == '10 RPL 1' ? 'selected' : '' ?>>10 RPL 1</option>
+                                                            <option value="10 RPL 2" <?= $data_siswa['kelas'] == '10 RPL 2' ? 'selected' : '' ?>>10 RPL 2</option>
+                                                            <option value="10 TKJ 1" <?= $data_siswa['kelas'] == '10 TKJ 1' ? 'selected' : '' ?>>10 TKJ 1</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mb-3">
+                                                        <label for="jumlah_alfa" class="form-label">Jumlah Alfa</label>
+                                                        <input type="number" class="form-control" name="jumlah_alfa" value="<?= $data_siswa['jumlah_alfa'] ?>" id="jumlah_alfa" placeholder="Kosongkan jika jumlahnya 0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mb-3">
+                                                        <label for="jumlah_izin" class="form-label">Jumlah Izin</label>
+                                                        <input type="number" class="form-control" name="jumlah_izin" value="<?= $data_siswa['jumlah_izin'] ?>" id="jumlah_izin" placeholder="Kosongkan jika jumlahnya 0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mb-3">
+                                                        <label for="jumlah_sakit" class="form-label">Jumlah Sakit</label>
+                                                        <input type="number" class="form-control" name="jumlah_sakit" value="<?= $data_siswa['jumlah_sakit'] ?>" id="jumlah_sakit" placeholder="Kosongkan jika jumlahnya 0">
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -153,7 +179,7 @@ if (isset($_POST['nuptk'])) {
     <script src="../assets/js/toastr.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#form_add_guru').submit(function (e) {
+            $('#form_edit_siswa').submit(function (e) {
                 e.preventDefault();
                 let form = $(this);
                 let url = form.attr('action');

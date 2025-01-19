@@ -4,6 +4,8 @@ $db = new database();
 $db->auth_dashboard();
 $session = $db->data_session();
 
+$count_data = $db->count_data();
+
 if (isset($_GET['logout'])) {
     $db->logout();
 }
@@ -49,7 +51,7 @@ if (isset($_GET['logout'])) {
             <!--  Header End -->
             <div class="container-fluid">
                 <!--  Row 1 -->
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-lg-4 flex-column">
                         <div class="row">
                             <div class="col-lg-12">
@@ -59,7 +61,7 @@ if (isset($_GET['logout'])) {
                                         <h5 class="card-title mb-9 fw-semibold">Total Guru BK</h5>
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
+                                                <h4 class="fw-semibold mb-3"><?= $count_data['jumlah_guru'] ?></h4>
 
                                             </div>
 
@@ -80,7 +82,7 @@ if (isset($_GET['logout'])) {
                                         <h5 class="card-title mb-9 fw-semibold">Total Siswa</h5>
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
+                                                <h4 class="fw-semibold mb-3"><?= $count_data['jumlah_siswa'] ?></h4>
 
                                             </div>
 
@@ -101,7 +103,7 @@ if (isset($_GET['logout'])) {
                                         <h5 class="card-title mb-9 fw-semibold">Total Home Visit</h5>
                                         <div class="row align-items-center">
                                             <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
+                                                <h4 class="fw-semibold mb-3"><?= $count_data['jumlah_visit'] ?></h4>
 
                                             </div>
 

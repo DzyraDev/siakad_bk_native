@@ -74,75 +74,10 @@ $data_guru = $db->form_edit_guru($id_user);
             ?>
             <!--  Header End -->
             <div class="container-fluid">
-                <!--  Row 1 -->
-                <div class="row">
-                    <div class="col-lg-4 flex-column">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Yearly Breakup -->
-                                <div class="card overflow-hidden">
-                                    <div class="card-body p-4">
-                                        <h5 class="card-title mb-9 fw-semibold">Total Guru BK</h5>
-                                        <div class="row align-items-center">
-                                            <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-lg-4 flex-column">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Yearly Breakup -->
-                                <div class="card overflow-hidden">
-                                    <div class="card-body p-4">
-                                        <h5 class="card-title mb-9 fw-semibold">Total Siswa</h5>
-                                        <div class="row align-items-center">
-                                            <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-lg-4 flex-column">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Yearly Breakup -->
-                                <div class="card overflow-hidden">
-                                    <div class="card-body p-4">
-                                        <h5 class="card-title mb-9 fw-semibold">Total Home Visit</h5>
-                                        <div class="row align-items-center">
-                                            <div class="col-8">
-                                                <h4 class="fw-semibold mb-3">$36,358</h4>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
 
                 <div class="container-fluid">
                     <div class="container-fluid">
-                        <div class="card">
+                        <div class="card mt-4">
                             <div class="card-body">
                                 <h5 class="card-title fw-semibold mb-4">Edit Data Guru BK</h5>
                                 <div class="card">

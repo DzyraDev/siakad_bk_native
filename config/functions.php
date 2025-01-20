@@ -326,6 +326,7 @@ class database
             while ($row = $results->fetch_assoc()) {
                 $response[] = [
                     'id_user' => $row['id_user'],
+                    'id_siswa' => $row['id_siswa'],
                     'nisn' => $row['nisn'],
                     'nama_lengkap' => $row['nama_lengkap'],
                     'kelas' => $row['kelas'],
@@ -474,5 +475,116 @@ class database
 
         return $response;
     }
+
+    function data_visit(): array
+    {
+        $stmt = $this->conn->prepare("SELECT guru_bk.nama_lengkap AS nama_guru, siswa.nama_lengkap AS nama_siswa, home_visit.* FROM home_visit LEFT JOIN kepuasan_layanan ON home_visit.id_home_visit = kepuasan_layanan.id_home_visit LEFT JOIN guru_bk ON home_visit.id_guru = guru_bk.id_guru LEFT JOIN siswa ON home_visit.id_siswa = siswa.id_siswa");
+        $stmt->execute();
+        $results = $stmt->get_result();
+        if ($results->num_rows > 0) {
+            while ($row = $results->fetch_assoc()) {
+                $date = date_create($row['tanggal_kunjungan']);
+                $response[] = [
+                    'id_visit' => $row['id_home_visit'],
+                    'guru' => $row['nama_guru'],
+                    'siswa' => $row['nama_siswa'],
+                    'tujuan' => $row['tujuan_kunjungan'],
+                    'tanggal' => date_format($date, "d-m-Y"),
+                    'status' => $row['status']
+                ];
+            }
+        } else {
+            $response = [];
+        }
+
+        return $response;
+    }
+
+    function create_visit($tujuan_kunjungan, $siswa, $tanggal_kunjungan){
+        $guru = $this->form_edit_guru($_SESSION['id_login']);
+        if($tujuan_kunjungan && $siswa && $tanggal_kunjungan != ''){
+            $stmt = $this->conn->prepare("INSERT INTO home_visit (id_guru, id_siswa, tanggal_kunjungan, tujuan_kunjungan) VALUES (?,?,?,?)");
+            $stmt->bind_param("iiss", $guru['id_guru'], $siswa, $tanggal_kunjungan, $tujuan_kunjungan);
+            $stmt->execute();
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Visit Berhasil Dibuat',
+                'redirect' => 'data-home-visit.php'
+            ];
+        }else{
+            $response = [
+                'status' => 'error',
+                'message' => 'Semua Field Wajib Diisi Selain Password',
+                'redirect' => ''
+            ];
+        }
+
+        return $response;
+    }
+
+    function edit_visit($id_visit, $tujuan_kunjungan, $siswa, $tanggal_kunjungan, $status, $hasil_kunjungan, $tindak_lanjut){
+        if($tujuan_kunjungan && $siswa && $tanggal_kunjungan != ''){
+            $stmt = $this->conn->prepare("UPDATE home_visit SET id_siswa=?, tanggal_kunjungan=?, tujuan_kunjungan=?, hasil_kunjungan=?, tindak_lanjut=?, status=? WHERE id_home_visit=?");
+            $stmt->bind_param("isssssi",$siswa, $tanggal_kunjungan, $tujuan_kunjungan, $hasil_kunjungan, $tindak_lanjut, $status, $id_visit);
+            $stmt->execute();
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Visit Berhasil Diubah',
+                'redirect' => 'data-home-visit.php'
+            ];
+        }else{
+            $response = [
+                'status' => 'error',
+                'message' => 'Semua Field Wajib Diisi Selain Password',
+                'redirect' => ''
+            ];
+        }
+
+        return $response;
+    }
+
+    function single_data_visit($id_visit): array
+    {
+        $stmt = $this->conn->prepare("SELECT guru_bk.nama_lengkap AS nama_guru, siswa.nama_lengkap AS nama_siswa, siswa.id_siswa, home_visit.* FROM home_visit LEFT JOIN kepuasan_layanan ON home_visit.id_home_visit = kepuasan_layanan.id_home_visit LEFT JOIN guru_bk ON home_visit.id_guru = guru_bk.id_guru LEFT JOIN siswa ON home_visit.id_siswa = siswa.id_siswa WHERE home_visit.id_home_visit=?");
+        $stmt->bind_param("i", $id_visit);
+        $stmt->execute();
+        $results = $stmt->get_result();
+        if ($results->num_rows > 0) {
+            $response = $results->fetch_assoc();
+        } else {
+            header("location: data-home-visit.php");
+        }
+
+        return $response;
+    }
+
+    function delete_visit($id_delete){
+        if($id_delete != ''){
+            $stmt = $this->conn->prepare("DELETE FROM kepuasan_layanan WHERE id_home_visit = ?");
+            $stmt->bind_param("i", $id_delete);
+            $stmt->execute();
+
+            $stmt2 = $this->conn->prepare("DELETE FROM home_visit WHERE id_home_visit = ?");
+            $stmt2->bind_param("i", $id_delete);
+            $stmt2->execute();
+
+            $response = [
+                'status' => 'success',
+                'message' => 'Visit Berhasil Dihapus'
+            ];
+        }else{
+            $response = [
+                'status' => 'error',
+                'message' => 'Visit Tidak Ditemukan'
+            ];
+
+        }
+
+        return $response;
+    }
+
+
 }
 ?>

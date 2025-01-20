@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">UI COMPONENTS</span>
+                    <span class="hide-menu">Content</span>
                 </li>
                 <?php if($session['role'] == 'admin'){ ?>
                     <li class="sidebar-item">
@@ -49,28 +49,17 @@
                             </a>
                         </li>
                 <?php  } ?>
-
-
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">AUTH</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-login"></i>
-                        </span>
-                        <span class="hide-menu">Log Out</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-user-plus"></i>
-                        </span>
-                        <span class="hide-menu">Register</span>
-                    </a>
-                </li>
+                <?php if($session['role'] == 'guru_bk'){ ?>
+                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="data-home-visit.php" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-article"></i>
+                                </span>
+                                <span class="hide-menu">KELOLA HOME VISIT</span>
+                            </a>
+                        </li>
+                <?php  } ?>
 
             </ul>
 

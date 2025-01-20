@@ -151,7 +151,7 @@ if (isset($_POST['nisn'])) {
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Submitt</button>
                                         </form>
                                     </div>
                                 </div>

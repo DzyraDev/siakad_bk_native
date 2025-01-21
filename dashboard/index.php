@@ -6,6 +6,10 @@ $session = $db->data_session();
 
 $count_data = $db->count_data();
 
+if($session['role'] == 'siswa'){
+    $count_data_siswa = $db->count_data_siswa($session['id_siswa']);
+}
+
 if (isset($_GET['logout'])) {
     $db->logout();
 }
@@ -70,9 +74,7 @@ if (isset($_GET['logout'])) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="col-lg-4 flex-column">
                             <div class="row">
@@ -91,9 +93,7 @@ if (isset($_GET['logout'])) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="col-lg-4 flex-column">
                             <div class="row">
@@ -112,9 +112,45 @@ if (isset($_GET['logout'])) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if($session['role'] == 'siswa'){ ?>
+                <div class="row mt-4">
+                        <div class="col-lg-4 flex-column">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- Yearly Breakup -->
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title mb-9 fw-semibold">Total Alfa</h5>
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h4 class="fw-semibold mb-3"><?= $count_data_siswa['jumlah_alfa_siswa'] ?></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 flex-column">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- Yearly Breakup -->
+                                    <div class="card overflow-hidden">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title mb-9 fw-semibold">Total Kunjungan Home Visit</h5>
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h4 class="fw-semibold mb-3"><?= $count_data_siswa['jumlah_visit_siswa'] ?></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php } ?>

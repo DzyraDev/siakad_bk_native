@@ -127,8 +127,6 @@ if (isset($_GET['logout'])) {
                                             <td><?= $row['email'] ?></td>
                                             <td><?= $row['tempat_lahir'] ?> / <?= $row['tanggal_lahir'] ?></td>
                                             <td>
-                                                <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                        class="material-icons">&#xE417;</i></a>
                                                 <a href="form-edit-guru.php?id=<?= $row['id_user'] ?>" class="edit"
                                                     title="Edit" data-toggle="tooltip"><i
                                                         class="material-icons">&#xE254;</i></a>

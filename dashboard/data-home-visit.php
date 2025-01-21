@@ -8,7 +8,7 @@ if ($session['role'] != 'guru_bk') {
     header("location: ../login.php");
 }
 
-if(isset($_REQUEST['id_delete'])){
+if (isset($_REQUEST['id_delete'])) {
     $id_delete = $_REQUEST['id_delete'];
 
     $response = $db->delete_visit($id_delete);
@@ -23,6 +23,7 @@ if (isset($_GET['logout'])) {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,91 +64,93 @@ if (isset($_GET['logout'])) {
             <div class="container-xl">
                 <!-- Modal -->
                 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="data-home-visit.php" id="ajax-delete">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi</h1>
-                                        <button type="button" class="btn-close btn_close_dialog" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Apakah anda yakin ingin menghapus visit?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn_close_dialog" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <div class="table-wrapper">
-                            <div class="table-title">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h2><b>Data Visit</b></h2>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="search-box">
-                                            <i class="material-icons">&#xE8B6;</i>
-                                            <input type="text" class="form-control" placeholder="Search&hellip;">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 mt-3">
-                                        <a href="form-visit.php" class="btn btn-primary m-1">Buat Visit</a>
-                                    </div>
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="data-home-visit.php" id="ajax-delete">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi</h1>
+                                    <button type="button" class="btn-close btn_close_dialog" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
-                            </div>
-                            <table class="table table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Guru BK<i class="fa fa-sort"></i></th>
-                                        <th>Siswa</th>
-                                        <th>Tujuan Kunjungan <i class="fa fa-sort"></i></th>
-                                        <th>Tanggal Kunjungan</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $guru = $db->data_visit();
-                                    $no = 1;
-                                    foreach($guru as $row){ ?>
-                                        <tr>
-                                            <td><?= $no++ ?></td>
-                                            <td><?= $row['guru'] ?></td>
-                                            <td><?= $row['siswa'] ?></td>
-                                            <td><?= $row['tujuan'] ?></td>
-                                            <td><?= $row['tanggal'] ?></td>
-                                            <td>
-                                                <span class="<?= $row['status'] == 'pending' ? 'bg-danger' : 'bg-success' ?> py-2 px-3 text-white rounded-3"><?= $row['status'] ?></span>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                        class="material-icons">&#xE417;</i></a>
-                                                <a href="form-edit-visit.php?id=<?= $row['id_visit'] ?>" class="edit"
-                                                    title="Edit" data-toggle="tooltip"><i
-                                                        class="material-icons">&#xE254;</i></a>
-                                                <!-- Button delete modal -->
-                                                <button type="button" class="btn_delete p-0 border-0 bg-transparent"
-                                                    data-bs-toggle="modal" data-id="<?= $row['id_visit'] ?>"
-                                                    data-bs-target="#modalDelete">
-                                                    <i class="material-icons">&#xE872;</i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menghapus visit?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn_close_dialog"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2><b>Data Visit</b></h2>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div class="search-box">
+                                        <i class="material-icons">&#xE8B6;</i>
+                                        <input type="text" class="form-control" placeholder="Search&hellip;">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="form-visit.php" class="btn btn-primary m-1">Buat Visit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Guru BK<i class="fa fa-sort"></i></th>
+                                    <th>Siswa</th>
+                                    <th>Tujuan Kunjungan <i class="fa fa-sort"></i></th>
+                                    <th>Tanggal Kunjungan</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $guru = $db->data_visit();
+                                $no = 1;
+                                foreach ($guru as $row) { ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $row['guru'] ?></td>
+                                        <td><?= $row['siswa'] ?></td>
+                                        <td><?= $row['tujuan'] ?></td>
+                                        <td><?= $row['tanggal'] ?></td>
+                                        <td>
+                                            <span
+                                                class="<?= $row['status'] == 'pending' ? 'bg-danger' : 'bg-success' ?> py-2 px-3 text-white rounded-3"><?= $row['status'] ?></span>
+                                        </td>
+                                        <td>
+                                            <a href="detail-home-visit.php?id=<?= $row['id_visit'] ?>" class="view" title="View" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE417;</i></a>
+                                            <a href="form-edit-visit.php?id=<?= $row['id_visit'] ?>" class="edit"
+                                                title="Edit" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE254;</i></a>
+                                            <!-- Button delete modal -->
+                                            <button type="button" class="btn_delete p-0 border-0 bg-transparent"
+                                                data-bs-toggle="modal" data-id="<?= $row['id_visit'] ?>"
+                                                data-bs-target="#modalDelete">
+                                                <i class="material-icons">&#xE872;</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>

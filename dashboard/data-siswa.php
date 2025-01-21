@@ -4,7 +4,7 @@ $db = new database();
 $db->auth_dashboard();
 $session = $db->data_session();
 
-if ($session['role'] != 'admin') {
+if ($session['role'] != 'admin' && $session['role'] != 'guru_bk') {
     header("location: ../login.php");
 }
 
@@ -93,15 +93,17 @@ if (isset($_GET['logout'])) {
                                     <div class="col-sm-8">
                                         <h2><b>Data Siswa</b></h2>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 mb-3">
                                         <div class="search-box">
                                             <i class="material-icons">&#xE8B6;</i>
                                             <input type="text" class="form-control" placeholder="Search&hellip;">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 mt-3">
-                                        <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswa</a>
-                                    </div>
+                                    <?php if($session['role'] == 'admin'){ ?>
+                                        <div class="col-sm-2">
+                                            <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswa</a>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <table class="table  table-hover table-bordered">
@@ -115,7 +117,9 @@ if (isset($_GET['logout'])) {
                                         <th>Alfa <i class="fa fa-sort"></i></th>
                                         <th>Izin <i class="fa fa-sort"></i></th>
                                         <th>Sakit <i class="fa fa-sort"></i></th>
+                                        <?php if($session['role'] == 'admin'){ ?>
                                         <th>Actions</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,9 +137,8 @@ if (isset($_GET['logout'])) {
                                         <td><?= $row['jumlah_alfa'] ?></td>
                                         <td><?= $row['jumlah_izin'] ?></td>
                                         <td><?= $row['jumlah_sakit'] ?></td>
+                                        <?php if($session['role'] == 'admin'){ ?>
                                         <td>
-                                            <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE417;</i></a>
                                             <a href="form-edit-siswa.php?id=<?= $row['id_user'] ?>" class="edit" title="Edit" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE254;</i></a>
                                             <button type="button" class="btn_delete p-0 border-0 bg-transparent"
@@ -144,6 +147,7 @@ if (isset($_GET['logout'])) {
                                                     <i class="material-icons">&#xE872;</i>
                                             </button>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

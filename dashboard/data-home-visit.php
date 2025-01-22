@@ -37,6 +37,7 @@ if (isset($_GET['logout'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="../assets/css/style2.css">
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
         $(document).ready(function () {
@@ -88,19 +89,9 @@ if (isset($_GET['logout'])) {
                 <div class="table-responsive">
                     <div class="table-wrapper">
                         <div class="table-title">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <h2><b>Data Visit</b></h2>
-                                </div>
-                                <div class="col-sm-4 mb-3">
-                                    <div class="search-box">
-                                        <i class="material-icons">&#xE8B6;</i>
-                                        <input type="text" class="form-control" placeholder="Search&hellip;">
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="form-visit.php" class="btn btn-primary m-1">Buat Visit</a>
-                                </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h2><b>Data Visit</b></h2>
+                                <a href="form-visit.php" class="btn btn-primary m-1">Buat Visit</a>
                             </div>
                         </div>
                         <table class="table table-hover table-bordered">
@@ -128,7 +119,7 @@ if (isset($_GET['logout'])) {
                                         <td><?= $row['tanggal'] ?></td>
                                         <td>
                                             <span
-                                                class="<?= $row['status'] == 'pending' ? 'bg-danger' : 'bg-success' ?> py-2 px-3 text-white rounded-3"><?= $row['status'] ?></span>
+                                                class="<?= $row['status'] == 'pending' ? 'bg-danger' : 'bg-success' ?> py-1 px-3 text-white rounded-3"><?= $row['status'] ?></span>
                                         </td>
                                         <td>
                                             <a href="detail-home-visit.php?id=<?= $row['id_visit'] ?>" class="view" title="View" data-toggle="tooltip"><i
@@ -161,8 +152,11 @@ if (isset($_GET['logout'])) {
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
+    <script src="../assets/js/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('.table').DataTable();
+
             $('.table').on('click', '.btn_delete', function () {
                 let id = $(this).data('id');
                 let form = $('#ajax-delete');

@@ -36,6 +36,7 @@ if (isset($_GET['logout'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="../assets/css/style2.css">
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
         $(document).ready(function () {
@@ -89,28 +90,18 @@ if (isset($_GET['logout'])) {
                     <div class="table-responsive">
                         <div class="table-wrapper">
                             <div class="table-title">
-                                <div class="row">
-                                    <div class="col-sm-8">
+                                <div class="d-flex justify-content-between mb-3">
                                         <h2><b>Data Guru</b></h2>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="search-box">
-                                            <i class="material-icons">&#xE8B6;</i>
-                                            <input type="text" class="form-control" placeholder="Search&hellip;">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 mt-3">
                                         <a href="form-guru.php" class="btn btn-primary m-1">Tambah Guru </a>
-                                    </div>
                                 </div>
                             </div>
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>NUPTK <i class="fa fa-sort"></i></th>
+                                        <th>NUPTK</th>
                                         <th>Nama Lengkap</th>
-                                        <th>Email <i class="fa fa-sort"></i></th>
+                                        <th>Email</th>
                                         <th>Tempat/Tgl Lahir</th>
                                         <th>Actions</th>
                                     </tr>
@@ -157,8 +148,11 @@ if (isset($_GET['logout'])) {
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
+    <script src="../assets/js/datatables.min.js"></script>
     <script>
         $(document).ready(function(){
+            $('.table').DataTable();
+
             $('.table').on('click', '.btn_delete', function () {
                 let id = $(this).data('id');
                 let form = $('#ajax-delete');

@@ -677,24 +677,36 @@ class database
 
     function penilaian_visit($id_siswa, $id_visit, $rating)
     {
-        $visit = $this->conn->prepare("SELECT id_home_visit FROM kepuasan_layanan WHERE id_home_visit=? AND id_siswa=?");
-        $visit->bind_param("ii", $id_visit, $id_siswa);
+        $visit = $this->conn->prepare("SELECT status FROM home_visit WHERE id_home_visit=?");
+        $visit->bind_param("i", $id_visit);
         $visit->execute();
-        $result = $visit->get_result();
+        $result_status = $visit->get_result()->fetch_assoc();
 
-        if ($result->num_rows < 1) {
-            $stmt = $this->conn->prepare("INSERT INTO kepuasan_layanan (id_home_visit, id_siswa, rating) VALUES (?,?,?)");
-            $stmt->bind_param("iis", $id_visit, $id_siswa, $rating);
-            $stmt->execute();
-
-            $response = [
-                'status' => 'success',
-                'message' => 'Anda Berhasil Memberikan Penilaian'
-            ];
-        } else {
+        if($result_status['status'] == 'selesai'){
+            $check_rating = $this->conn->prepare("SELECT id_home_visit FROM kepuasan_layanan WHERE id_home_visit=? AND id_siswa=?");
+            $check_rating->bind_param("ii", $id_visit, $id_siswa);
+            $check_rating->execute();
+            $result = $check_rating->get_result();
+    
+            if ($result->num_rows < 1) {
+                $stmt = $this->conn->prepare("INSERT INTO kepuasan_layanan (id_home_visit, id_siswa, rating) VALUES (?,?,?)");
+                $stmt->bind_param("iis", $id_visit, $id_siswa, $rating);
+                $stmt->execute();
+    
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Anda Berhasil Memberikan Penilaian'
+                ];
+            } else {
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Anda Sudah Memberikan Penilaian'
+                ];
+            }
+        }else{
             $response = [
                 'status' => 'error',
-                'message' => 'Anda Sudah Memberikan Penilaian'
+                'message' => 'Status Masih Pending'
             ];
         }
 

@@ -36,6 +36,7 @@ if (isset($_GET['logout'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="../assets/css/style2.css">
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
         $(document).ready(function () {
@@ -89,34 +90,22 @@ if (isset($_GET['logout'])) {
                     <div class="table-responsive">
                         <div class="table-wrapper">
                             <div class="table-title">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h2><b>Data Siswa</b></h2>
-                                    </div>
-                                    <div class="col-sm-4 mb-3">
-                                        <div class="search-box">
-                                            <i class="material-icons">&#xE8B6;</i>
-                                            <input type="text" class="form-control" placeholder="Search&hellip;">
-                                        </div>
-                                    </div>
-                                    <?php if($session['role'] == 'admin'){ ?>
-                                        <div class="col-sm-2">
-                                            <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswa</a>
-                                        </div>
-                                    <?php } ?>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h2><b>Data Siswa</b></h2>
+                                    <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswa</a>
                                 </div>
                             </div>
-                            <table class="table  table-hover table-bordered">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>NISN <i class="fa fa-sort"></i></th>
+                                        <th>NISN</th>
                                         <th>Nama Lengkap</th>
-                                        <th>Kelas <i class="fa fa-sort"></i></th>
+                                        <th>Kelas</th>
                                         <th>No Handphone</th>
-                                        <th>Alfa <i class="fa fa-sort"></i></th>
-                                        <th>Izin <i class="fa fa-sort"></i></th>
-                                        <th>Sakit <i class="fa fa-sort"></i></th>
+                                        <th>Alfa</th>
+                                        <th>Izin</th>
+                                        <th>Sakit</th>
                                         <?php if($session['role'] == 'admin'){ ?>
                                         <th>Actions</th>
                                         <?php } ?>
@@ -166,8 +155,11 @@ if (isset($_GET['logout'])) {
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
+    <script src="../assets/js/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('.table').DataTable();
+
             $('.table').on('click', '.btn_delete', function () {
                 let id = $(this).data('id');
                 let form = $('#ajax-delete');

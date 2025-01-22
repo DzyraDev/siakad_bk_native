@@ -16,7 +16,7 @@ username : aris<br>
 password aris123
 
 <br>
-Fitur Fitur Yang Tersedia :
+Fitur Fitur Yang Tersedia :<br>
 
 admin<br>
 Melihat total siswa, total guru, total home visit<br>

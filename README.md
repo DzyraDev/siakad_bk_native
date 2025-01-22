@@ -11,6 +11,10 @@ guru<br>
 username : eko<br>
 password : eko123
 
+kepala sekolah<br>
+username : edy<br>
+password : edy123
+
 siswa<br>
 username : aris<br>
 password aris123

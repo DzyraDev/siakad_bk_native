@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'guru_bk') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -42,7 +42,7 @@ if (isset($_POST['siswa'])) {
     <link rel="stylesheet" href="../assets/css/select2.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -82,12 +82,12 @@ if (isset($_POST['siswa'])) {
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="siswa" class="form-label">Nama Lengkap</label>
-                                                        <select class="js-example-basic-single form-select p-5" name="siswa"> 
+                                                        <select class="js-example-basic-single form-select p-5" name="siswa">
                                                             <option value="two" disabled="disabled" selected>Pilih Siswa</option>
-                                                            <?php 
-                                                                $data_siswa = $db->data_siswa();
-                                                                foreach($data_siswa as $row){ ?>
-                                                                    <option value="<?= $row['id_siswa'] ?>"><?= $row['nama_lengkap']; ?> - <?= $row['kelas'] ?></option>
+                                                            <?php
+                                                            $data_siswa = $db->data_siswa();
+                                                            foreach ($data_siswa as $row) { ?>
+                                                                <option value="<?= $row['id_siswa'] ?>"><?= $row['nama_lengkap']; ?> - <?= $row['kelas'] ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -121,13 +121,13 @@ if (isset($_POST['siswa'])) {
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/select2.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: "Pilih Siswa",
                 width: "resolve"
             });
 
-            $('#form_create_visit').submit(function (e) {
+            $('#form_create_visit').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
                 let url = form.attr('action');
@@ -141,7 +141,7 @@ if (isset($_POST['siswa'])) {
                     contentType: false,
                     data: data,
                     dataType: 'JSON',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             toastr.success(response.message, 'Success !', {
                                 closeButton: true,
@@ -149,7 +149,7 @@ if (isset($_POST['siswa'])) {
                                 timeOut: 1500
                             });
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 if (response.redirect != "") {
                                     location.href = response.redirect;
                                 }

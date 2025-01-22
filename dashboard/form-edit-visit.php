@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'guru_bk') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -20,8 +20,8 @@ if (isset($_POST['siswa'])) {
     $status = isset($_POST['status']) ? strip_tags($_POST['status']) : '';
     $hasil_kunjungan = !empty($_POST['hasil_kunjungan']) ? strip_tags($_POST['hasil_kunjungan']) : null;
     $tindak_lanjut = !empty($_POST['tindak_lanjut']) ? strip_tags($_POST['tindak_lanjut']) : null;
-    
-    $response = $db->edit_visit($id_visit,$tujuan_kunjungan, $siswa, $tanggal_kunjungan, $status, $hasil_kunjungan, $tindak_lanjut);
+
+    $response = $db->edit_visit($id_visit, $tujuan_kunjungan, $siswa, $tanggal_kunjungan, $status, $hasil_kunjungan, $tindak_lanjut);
     echo json_encode($response);
     exit;
 }
@@ -50,7 +50,7 @@ $data_visit = $db->single_data_visit($id_visit);
     <link rel="stylesheet" href="../assets/css/select2.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -91,12 +91,12 @@ $data_visit = $db->single_data_visit($id_visit);
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="siswa" class="form-label">Nama Siswa</label><br>
-                                                        <select class="js-example-basic-single form-select p-5 w-100" name="siswa"> 
+                                                        <select class="js-example-basic-single form-select p-5 w-100" name="siswa">
                                                             <option value="two" disabled="disabled" selected>Pilih Siswa</option>
-                                                            <?php 
-                                                                $data_siswa = $db->data_siswa();
-                                                                foreach($data_siswa as $row){ ?>
-                                                                    <option value="<?= $row['id_siswa'] ?>" <?= $data_visit['id_siswa'] == $row['id_siswa'] ? 'selected' : '' ?>><?= $row['nama_lengkap']; ?> - <?= $row['kelas'] ?></option>
+                                                            <?php
+                                                            $data_siswa = $db->data_siswa();
+                                                            foreach ($data_siswa as $row) { ?>
+                                                                <option value="<?= $row['id_siswa'] ?>" <?= $data_visit['id_siswa'] == $row['id_siswa'] ? 'selected' : '' ?>><?= $row['nama_lengkap']; ?> - <?= $row['kelas'] ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -126,7 +126,7 @@ $data_visit = $db->single_data_visit($id_visit);
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                <div class="mb-3">
+                                                    <div class="mb-3">
                                                         <label for="tindak_lanjut" class="form-label">Tindak Lanjut</label>
                                                         <input type="text" class="form-control" value="<?= $data_visit['tindak_lanjut'] ?>" name="tindak_lanjut" id="tindak_lanjut">
                                                     </div>
@@ -154,13 +154,13 @@ $data_visit = $db->single_data_visit($id_visit);
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/select2.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.js-example-basic-single').select2({
                 placeholder: "Pilih Siswa",
                 width: "resolve"
             });
 
-            $('#form_edit_visit').submit(function (e) {
+            $('#form_edit_visit').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
                 let url = form.attr('action');
@@ -174,7 +174,7 @@ $data_visit = $db->single_data_visit($id_visit);
                     contentType: false,
                     data: data,
                     dataType: 'JSON',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             toastr.success(response.message, 'Success !', {
                                 closeButton: true,
@@ -182,7 +182,7 @@ $data_visit = $db->single_data_visit($id_visit);
                                 timeOut: 1500
                             });
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 if (response.redirect != "") {
                                     location.href = response.redirect;
                                 }

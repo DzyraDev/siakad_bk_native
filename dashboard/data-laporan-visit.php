@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'guru_bk' && $session['role'] != 'kepala_sekolah') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -31,7 +31,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -114,7 +114,7 @@ if (isset($_GET['logout'])) {
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/datatables.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.table').DataTable();
         });
     </script>

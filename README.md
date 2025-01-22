@@ -7,31 +7,31 @@ admin<br>
 username : admin<br>
 password : admin
 
-guru
-username : eko
+guru<br>
+username : eko<br>
 password : eko123
 
-siswa
-username : aris
+siswa<br>
+username : aris<br>
 password aris123
 
 
 Fitur Fitur Yang Tersedia :
 
-admin
-Melihat total siswa, total guru, total home visit
-mengelola data siswa
+admin<br>
+Melihat total siswa, total guru, total home visit<br>
+mengelola data siswa<br>
 mengelola data guru
 
-guru
-melihat data siswa
-mengelola home visit
-melihat hasil penilaian kepuasan home visit
+guru<br>
+melihat data siswa<br>
+mengelola home visit<br>
+melihat hasil penilaian kepuasan home visit<br>
 mencetak laporan home visit
 
-kepala sekolah
+kepala sekolah<br>
 mencetak laporan home visit
 
-siswa
-melihat profil
+siswa<br>
+melihat profil<br>
 memberikan penilaian kepuasan layanan home visit

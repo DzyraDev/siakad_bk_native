@@ -3,7 +3,7 @@ Sebuah aplikasi berbasis website yang bisa melihat data kehadiran siswa dan bisa
 
 Login with :
 
-admin
+admin<br>
 username : admin
 password : admin
 

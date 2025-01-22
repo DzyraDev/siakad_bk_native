@@ -4,7 +4,7 @@ Sebuah aplikasi berbasis website yang bisa melihat data kehadiran siswa dan bisa
 Login with :
 
 admin<br>
-username : admin
+username : admin<br>
 password : admin
 
 guru

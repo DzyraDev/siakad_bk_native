@@ -13,7 +13,7 @@ password : eko123
 
 kepala sekolah<br>
 username : edy<br>
-password : edy123
+password : edy
 
 siswa<br>
 username : aris<br>

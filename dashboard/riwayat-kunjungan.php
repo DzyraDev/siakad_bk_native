@@ -5,14 +5,14 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'siswa') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
-if(isset($_POST['rating'])){
+if (isset($_POST['rating'])) {
     $id_siswa = isset($_POST['id_siswa']) ? strip_tags($_POST['id_siswa']) : '';
     $id_visit = isset($_POST['id_visit']) ? strip_tags($_POST['id_visit']) : '';
     $rating = isset($_POST['rating']) ? strip_tags($_POST['rating']) : '';
-    
+
     $response = $db->penilaian_visit($id_siswa, $id_visit, $rating);
     echo json_encode($response);
     exit;
@@ -42,7 +42,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -99,15 +99,15 @@ if (isset($_GET['logout'])) {
                                             <span class="<?= $row['status'] == 'pending' ? 'bg-danger' : 'bg-success' ?> py-1 px-3 text-white rounded-3"><?= $row['status'] ?></span>
                                         </td>
                                         <td>
-                                        <form action="riwayat-kunjungan.php" method="POST" id="form_rating">
-                                            <select class="form-select" aria-label="Default select example" name="rating" id="rating" data-visit="<?= $row['id_visit'] ?>" data-siswa="<?= $row['id_siswa'] ?>">
-                                                <option selected>Penilaian</option>
-                                                <option value="sangat baik" <?= $row['rating'] == 'sangat baik' ? 'selected' :'' ?>>Sangat Baik</option>
-                                                <option value="baik" <?= $row['rating'] == 'baik' ? 'selected' :'' ?>>Baik</option>
-                                                <option value="cukup baik" <?= $row['rating'] == 'cukup baik' ? 'selected' :'' ?>>Cukup baik</option>
-                                                <option value="buruk" <?= $row['rating'] == 'buruk' ? 'selected' :'' ?>>Buruk</option>
-                                            </select>
-                                        </form>
+                                            <form action="riwayat-kunjungan.php" method="POST" id="form_rating">
+                                                <select class="form-select" aria-label="Default select example" name="rating" id="rating" data-visit="<?= $row['id_visit'] ?>" data-siswa="<?= $row['id_siswa'] ?>">
+                                                    <option selected>Penilaian</option>
+                                                    <option value="sangat baik" <?= $row['rating'] == 'sangat baik' ? 'selected' : '' ?>>Sangat Baik</option>
+                                                    <option value="baik" <?= $row['rating'] == 'baik' ? 'selected' : '' ?>>Baik</option>
+                                                    <option value="cukup baik" <?= $row['rating'] == 'cukup baik' ? 'selected' : '' ?>>Cukup baik</option>
+                                                    <option value="buruk" <?= $row['rating'] == 'buruk' ? 'selected' : '' ?>>Buruk</option>
+                                                </select>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -128,10 +128,10 @@ if (isset($_GET['logout'])) {
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/datatables.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.table').DataTable();
-            
-            $("#rating").change(function(){
+
+            $("#rating").change(function() {
                 let form = $('#form_rating');
                 let url = form.attr('action');
                 let method = form.attr('method');

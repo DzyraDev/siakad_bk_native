@@ -43,7 +43,7 @@ class database
                     $response = [
                         'status' => 'success',
                         'message' => 'Anda Berhasil Mendaftar',
-                        'redirect' => 'login.php'
+                        'redirect' => 'index.php'
                     ];
                 } else {
                     $response = [
@@ -101,7 +101,6 @@ class database
                     'redirect' => ''
                 ];
             }
-
         } else {
             $response = [
                 'status' => 'error',
@@ -133,7 +132,7 @@ class database
     function auth_dashboard()
     {
         if (!isset($_SESSION['id_login'])) {
-            header("location: ../login.php");
+            header("location: ../index.php");
         }
     }
 
@@ -141,7 +140,7 @@ class database
     {
         session_unset();
         session_destroy();
-        header("location: ../login.php");
+        header("location: ../index.php");
     }
 
     function count_data()
@@ -337,13 +336,12 @@ class database
                 'status' => 'error',
                 'message' => 'Guru Tidak Ditemukan'
             ];
-
         }
 
         return $response;
     }
 
-    function data_siswa(): array
+    function data_siswa()
     {
         $role = "siswa";
         $stmt = $this->conn->prepare("SELECT * FROM users INNER JOIN siswa ON users.id_user = siswa.id_user WHERE users.role=?");
@@ -501,13 +499,12 @@ class database
                 'status' => 'error',
                 'message' => 'Siswa Tidak Ditemukan'
             ];
-
         }
 
         return $response;
     }
 
-    function data_visit(): array
+    function data_visit()
     {
         $stmt = $this->conn->prepare("SELECT guru_bk.nama_lengkap AS nama_guru, siswa.nama_lengkap AS nama_siswa, siswa.id_siswa, home_visit.* FROM home_visit LEFT JOIN kepuasan_layanan ON home_visit.id_home_visit = kepuasan_layanan.id_home_visit LEFT JOIN guru_bk ON home_visit.id_guru = guru_bk.id_guru LEFT JOIN siswa ON home_visit.id_siswa = siswa.id_siswa ORDER BY tanggal_kunjungan");
         $stmt->execute();
@@ -581,7 +578,7 @@ class database
         return $response;
     }
 
-    function single_data_visit($id_visit): array
+    function single_data_visit($id_visit)
     {
         $stmt = $this->conn->prepare("SELECT guru_bk.nama_lengkap AS nama_guru, siswa.nama_lengkap AS nama_siswa, siswa.id_siswa, rating, home_visit.* FROM home_visit LEFT JOIN kepuasan_layanan ON home_visit.id_home_visit = kepuasan_layanan.id_home_visit LEFT JOIN guru_bk ON home_visit.id_guru = guru_bk.id_guru LEFT JOIN siswa ON home_visit.id_siswa = siswa.id_siswa WHERE home_visit.id_home_visit=?");
         $stmt->bind_param("i", $id_visit);
@@ -613,13 +610,12 @@ class database
                 'status' => 'error',
                 'message' => 'Visit Tidak Ditemukan'
             ];
-
         }
 
         return $response;
     }
 
-    function cetak_laporan($dari_tanggal, $sampai_tanggal): array
+    function cetak_laporan($dari_tanggal, $sampai_tanggal)
     {
         $stmt = $this->conn->prepare("SELECT guru_bk.nama_lengkap AS nama_guru, siswa.nama_lengkap AS nama_siswa, home_visit.* FROM home_visit LEFT JOIN guru_bk ON home_visit.id_guru = guru_bk.id_guru LEFT JOIN siswa ON home_visit.id_siswa = siswa.id_siswa WHERE tanggal_kunjungan BETWEEN ? AND ?");
         $stmt->bind_param("ss", $dari_tanggal, $sampai_tanggal);
@@ -652,7 +648,7 @@ class database
         $stmt->execute();
         $results = $stmt->get_result();
 
-        if($results->num_rows > 0){
+        if ($results->num_rows > 0) {
             while ($row = $results->fetch_assoc()) {
                 $date = date_create($row['tanggal_kunjungan']);
                 $response[] = [
@@ -667,7 +663,7 @@ class database
                     'rating' => $row['rating'],
                 ];
             }
-        }else{
+        } else {
             $response = [];
         }
 
@@ -682,17 +678,17 @@ class database
         $visit->execute();
         $result_status = $visit->get_result()->fetch_assoc();
 
-        if($result_status['status'] == 'selesai'){
+        if ($result_status['status'] == 'selesai') {
             $check_rating = $this->conn->prepare("SELECT id_home_visit FROM kepuasan_layanan WHERE id_home_visit=? AND id_siswa=?");
             $check_rating->bind_param("ii", $id_visit, $id_siswa);
             $check_rating->execute();
             $result = $check_rating->get_result();
-    
+
             if ($result->num_rows < 1) {
                 $stmt = $this->conn->prepare("INSERT INTO kepuasan_layanan (id_home_visit, id_siswa, rating) VALUES (?,?,?)");
                 $stmt->bind_param("iis", $id_visit, $id_siswa, $rating);
                 $stmt->execute();
-    
+
                 $response = [
                     'status' => 'success',
                     'message' => 'Anda Berhasil Memberikan Penilaian'
@@ -703,7 +699,7 @@ class database
                     'message' => 'Anda Sudah Memberikan Penilaian'
                 ];
             }
-        }else{
+        } else {
             $response = [
                 'status' => 'error',
                 'message' => 'Status Masih Pending'
@@ -711,7 +707,5 @@ class database
         }
 
         return $response;
-
     }
 }
-?>

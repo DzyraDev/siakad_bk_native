@@ -97,7 +97,7 @@ if (isset($_POST['nisn'])) {
                                     <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Daftar</button>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-bold">Sudah Punya Akun?</p>
-                                        <a class="text-primary fw-bold ms-2" href="login.php">Masuk</a>
+                                        <a class="text-primary fw-bold ms-2" href="index.php">Masuk</a>
                                     </div>
                                 </form>
                             </div>
@@ -111,8 +111,8 @@ if (isset($_POST['nisn'])) {
     <script src="assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/toastr.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#form_regis').submit(function (e) {
+        $(document).ready(function() {
+            $('#form_regis').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
                 let url = form.attr('action');
@@ -126,7 +126,7 @@ if (isset($_POST['nisn'])) {
                     contentType: false,
                     data: data,
                     dataType: 'JSON',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             toastr.success(response.message, 'Success !', {
                                 closeButton: true,
@@ -134,7 +134,7 @@ if (isset($_POST['nisn'])) {
                                 timeOut: 1500
                             });
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 if (response.redirect != "") {
                                     location.href = response.redirect;
                                 }

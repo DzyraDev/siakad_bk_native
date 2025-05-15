@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'admin') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -53,7 +53,7 @@ $data_siswa = $db->form_edit_siswa($id_user);
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -178,8 +178,8 @@ $data_siswa = $db->form_edit_siswa($id_user);
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/toastr.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#form_edit_siswa').submit(function (e) {
+        $(document).ready(function() {
+            $('#form_edit_siswa').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
                 let url = form.attr('action');
@@ -193,7 +193,7 @@ $data_siswa = $db->form_edit_siswa($id_user);
                     contentType: false,
                     data: data,
                     dataType: 'JSON',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             toastr.success(response.message, 'Success !', {
                                 closeButton: true,
@@ -201,7 +201,7 @@ $data_siswa = $db->form_edit_siswa($id_user);
                                 timeOut: 1500
                             });
 
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 if (response.redirect != "") {
                                     location.href = response.redirect;
                                 }

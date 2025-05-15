@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'siswa') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -31,7 +31,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../assets/css/toastr.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>

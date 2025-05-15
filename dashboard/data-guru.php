@@ -5,10 +5,10 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'admin') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
-if(isset($_REQUEST['id_delete'])){
+if (isset($_REQUEST['id_delete'])) {
     $id_delete = $_REQUEST['id_delete'];
 
     $response = $db->delete_guru($id_delete);
@@ -39,7 +39,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -91,8 +91,8 @@ if (isset($_GET['logout'])) {
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="d-flex justify-content-between mb-3">
-                                        <h2><b>Data Guru</b></h2>
-                                        <a href="form-guru.php" class="btn btn-primary m-1">Tambah Guru </a>
+                                    <h2><b>Data Guru</b></h2>
+                                    <a href="form-guru.php" class="btn btn-primary m-1">Tambah Guru </a>
                                 </div>
                             </div>
                             <table class="table table-hover table-bordered">
@@ -110,7 +110,7 @@ if (isset($_GET['logout'])) {
                                     <?php
                                     $guru = $db->data_guru();
                                     $no = 1;
-                                    foreach($guru as $row){ ?>
+                                    foreach ($guru as $row) { ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
                                             <td><?= $row['nuptk'] ?></td>
@@ -150,23 +150,23 @@ if (isset($_GET['logout'])) {
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/datatables.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.table').DataTable();
 
-            $('.table').on('click', '.btn_delete', function () {
+            $('.table').on('click', '.btn_delete', function() {
                 let id = $(this).data('id');
                 let form = $('#ajax-delete');
                 let row = $(this).closest('tr');
-                form.attr('action', 'data-guru.php?id_delete='+id);
-                form.data('row',row);
+                form.attr('action', 'data-guru.php?id_delete=' + id);
+                form.data('row', row);
             });
 
-            $('.btn_close_dialog').click(function () {
+            $('.btn_close_dialog').click(function() {
                 let form = $('#ajax-delete');
                 form.attr('action', 'data-guru.php');
             });
 
-            $('#ajax-delete').submit(function (e) {
+            $('#ajax-delete').submit(function(e) {
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let row = $(this).data('row');
@@ -174,12 +174,12 @@ if (isset($_GET['logout'])) {
                     type: 'DELETE',
                     url: url,
                     dataType: 'JSON',
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalDelete').hide();
                         $('body').removeClass('modal-open');
                         $('.modal-backdrop').remove();
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             row.remove();
                             toastr.success(response.message, 'Success !', {
@@ -195,7 +195,7 @@ if (isset($_GET['logout'])) {
                             });
                         }
                     },
-                    error: function (response) {
+                    error: function(response) {
                         toastr.error(response.responseJSON.message, 'Failed !', {
                             closeButton: true,
                             progressBar: true,

@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'guru_bk') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
 if (isset($_GET['logout'])) {
@@ -34,7 +34,7 @@ $data_visit = $db->single_data_visit($id_visit);
     <link rel="stylesheet" href="../assets/css/style2.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -65,19 +65,19 @@ $data_visit = $db->single_data_visit($id_visit);
                                 <h5 class="card-title fw-semibold mb-4">Detail Visit</h5>
                                 <div class="card">
                                     <div class="card-body">
-                                            <input type="hidden" value="<?= $data_visit['id_home_visit'] ?>" name="id_visit">
-                                            <div class="mb-3">
-                                                <label for="tujuan_kunjungan" class="form-label">Tujuan Kunjungan</label>
-                                                <input type="text" class="form-control" value="<?= $data_visit['tujuan_kunjungan'] ?>" name="tujuan_kunjungan" id="tujuan_kunjungan" disabled>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="tindak_lanjut" class="form-label">Tindak Lanjut</label>
-                                                <input type="text" class="form-control" value="<?= $data_visit['tindak_lanjut'] ?>" name="tindak_lanjut" id="tindak_lanjut" disabled>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="rating" class="form-label">Penilaian</label>
-                                                <input type="text" class="form-control" value="<?= $data_visit['rating'] ?>" name="rating" id="rating" disabled>
-                                            </div>
+                                        <input type="hidden" value="<?= $data_visit['id_home_visit'] ?>" name="id_visit">
+                                        <div class="mb-3">
+                                            <label for="tujuan_kunjungan" class="form-label">Tujuan Kunjungan</label>
+                                            <input type="text" class="form-control" value="<?= $data_visit['tujuan_kunjungan'] ?>" name="tujuan_kunjungan" id="tujuan_kunjungan" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tindak_lanjut" class="form-label">Tindak Lanjut</label>
+                                            <input type="text" class="form-control" value="<?= $data_visit['tindak_lanjut'] ?>" name="tindak_lanjut" id="tindak_lanjut" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="rating" class="form-label">Penilaian</label>
+                                            <input type="text" class="form-control" value="<?= $data_visit['rating'] ?>" name="rating" id="rating" disabled>
+                                        </div>
                                         </form>
                                     </div>
                                 </div>

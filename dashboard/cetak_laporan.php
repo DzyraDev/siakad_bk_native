@@ -5,7 +5,7 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'guru_bk' && $session['role'] != 'kepala_sekolah') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 $dari_tanggal = isset($_POST['dari_tanggal']) ? $_POST['dari_tanggal'] : '';
 $sampai_tanggal = isset($_POST['sampai_tanggal']) ? $_POST['sampai_tanggal'] : '';

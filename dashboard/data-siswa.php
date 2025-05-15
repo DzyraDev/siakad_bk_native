@@ -5,10 +5,10 @@ $db->auth_dashboard();
 $session = $db->data_session();
 
 if ($session['role'] != 'admin' && $session['role'] != 'guru_bk') {
-    header("location: ../login.php");
+    header("location: ../index.php");
 }
 
-if(isset($_REQUEST['id_delete'])){
+if (isset($_REQUEST['id_delete'])) {
     $id_delete = $_REQUEST['id_delete'];
 
     $response = $db->delete_siswa($id_delete);
@@ -39,7 +39,7 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../assets/css/datatables.min.css">
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
@@ -63,8 +63,8 @@ if (isset($_GET['logout'])) {
             <!--  Header End -->
             <div class="container-fluid">
 
-            <!-- Modal -->
-            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <!-- Modal -->
+                <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -108,8 +108,8 @@ if (isset($_GET['logout'])) {
                                         <th>Alfa</th>
                                         <th>Izin</th>
                                         <th>Sakit</th>
-                                        <?php if($session['role'] == 'admin'){ ?>
-                                        <th>Actions</th>
+                                        <?php if ($session['role'] == 'admin') { ?>
+                                            <th>Actions</th>
                                         <?php } ?>
                                     </tr>
                                 </thead>
@@ -117,29 +117,29 @@ if (isset($_GET['logout'])) {
                                     <?php
                                     $siswa = $db->data_siswa();
                                     $no = 1;
-                                    foreach($siswa as $row){
+                                    foreach ($siswa as $row) {
                                     ?>
-                                    <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $row['nisn'] ?></td>
-                                        <td><?= $row['nama_lengkap'] ?></td>
-                                        <td><?= $row['kelas'] ?></td>
-                                        <td><?= $row['telp'] ?></td>
-                                        <td><?= $row['jumlah_alfa'] ?></td>
-                                        <td><?= $row['jumlah_izin'] ?></td>
-                                        <td><?= $row['jumlah_sakit'] ?></td>
-                                        <?php if($session['role'] == 'admin'){ ?>
-                                        <td>
-                                            <a href="form-edit-siswa.php?id=<?= $row['id_user'] ?>" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE254;</i></a>
-                                            <button type="button" class="btn_delete p-0 border-0 bg-transparent"
-                                                    data-bs-toggle="modal" data-id="<?= $row['id_user'] ?>"
-                                                    data-bs-target="#modalDelete">
-                                                    <i class="material-icons">&#xE872;</i>
-                                            </button>
-                                        </td>
-                                        <?php } ?>
-                                    </tr>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $row['nisn'] ?></td>
+                                            <td><?= $row['nama_lengkap'] ?></td>
+                                            <td><?= $row['kelas'] ?></td>
+                                            <td><?= $row['telp'] ?></td>
+                                            <td><?= $row['jumlah_alfa'] ?></td>
+                                            <td><?= $row['jumlah_izin'] ?></td>
+                                            <td><?= $row['jumlah_sakit'] ?></td>
+                                            <?php if ($session['role'] == 'admin') { ?>
+                                                <td>
+                                                    <a href="form-edit-siswa.php?id=<?= $row['id_user'] ?>" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                            class="material-icons">&#xE254;</i></a>
+                                                    <button type="button" class="btn_delete p-0 border-0 bg-transparent"
+                                                        data-bs-toggle="modal" data-id="<?= $row['id_user'] ?>"
+                                                        data-bs-target="#modalDelete">
+                                                        <i class="material-icons">&#xE872;</i>
+                                                    </button>
+                                                </td>
+                                            <?php } ?>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -159,10 +159,10 @@ if (isset($_GET['logout'])) {
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/datatables.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.table').DataTable();
 
-            $('.table').on('click', '.btn_delete', function () {
+            $('.table').on('click', '.btn_delete', function() {
                 let id = $(this).data('id');
                 let form = $('#ajax-delete');
                 let row = $(this).closest('tr');
@@ -170,12 +170,12 @@ if (isset($_GET['logout'])) {
                 form.data('row', row);
             });
 
-            $('.btn_close_dialog').click(function () {
+            $('.btn_close_dialog').click(function() {
                 let form = $('#ajax-delete');
                 form.attr('action', 'data-siswa.php');
             });
 
-            $('#ajax-delete').submit(function (e) {
+            $('#ajax-delete').submit(function(e) {
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let row = $(this).data('row');
@@ -183,12 +183,12 @@ if (isset($_GET['logout'])) {
                     type: 'DELETE',
                     url: url,
                     dataType: 'JSON',
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalDelete').hide();
                         $('body').removeClass('modal-open');
                         $('.modal-backdrop').remove();
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status == 'success') {
                             row.remove();
                             toastr.success(response.message, 'Success !', {
@@ -204,7 +204,7 @@ if (isset($_GET['logout'])) {
                             });
                         }
                     },
-                    error: function (response) {
+                    error: function(response) {
                         toastr.error(response.responseJSON.message, 'Failed !', {
                             closeButton: true,
                             progressBar: true,

@@ -93,7 +93,7 @@ if (isset($_GET['logout'])) {
                                 <div class="d-flex justify-content-between mb-3">
                                     <h2><b>Data Siswa</b></h2>
                                     <?php if($session['role'] == 'admin'){ ?>
-                                        <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswa</a>
+                                        <a href="form-siswa.php" class="btn btn-primary m-1">Tambah Siswaa</a>
                                     <?php } ?>
                                 </div>
                             </div>
